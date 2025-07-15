@@ -51,9 +51,9 @@ spring.jpa.hibernate.ddl-auto=update
 
 ## 👥 Equipo de desarrollo
 
-| Nombre                  | Rol     | GitHub                                      | LinkedIn                                                                        | Email                      |
-|-------------------------|---------|---------------------------------------------|---------------------------------------------------------------------------------|----------------------------|
-| Yamil Daza Rospilloso   | Backend | [@daza-yamil](https://github.com/dazayamil) | [linkedin.com/in/yamil-daza](https://www.linkedin.com/in/yamil-daza/)           | dazayamil07@gmail.com      |
-| Angel Gabriel Minjares Guerrero | Backend | [@Gaboux21](https://github.com/Gaboux21)    | [linkedin.com/in/angelgabrielminjares](https://www.linkedin.com/in/angelgabrielminjares) | angelgabrielminjaresm@gmail.com |
-| Pedro Purihuaman        | Backend      | [@puriihuaman](https://github.com/puriihuaman)    | [linkedin.com/in/pedropurihuaman](https://www.linkedin.com/in/pedropurihuaman)  | pedropuriihuaman@gmail.com |
+| Nombre                  | Rol        | GitHub                                      | LinkedIn                                                                        | Email                      |
+|-------------------------|------------|---------------------------------------------|---------------------------------------------------------------------------------|----------------------------|
+| Yamil Daza Rospilloso   | Backend    | [@daza-yamil](https://github.com/dazayamil) | [linkedin.com/in/yamil-daza](https://www.linkedin.com/in/yamil-daza/)           | dazayamil07@gmail.com      |
+| Angel Gabriel Minjares Guerrero | Backend    | [@Gaboux21](https://github.com/Gaboux21)    | [linkedin.com/in/angelgabrielminjares](https://www.linkedin.com/in/angelgabrielminjares) | angelgabrielminjaresm@gmail.com |
+| Pedro Purihuaman        | Full Stack | [@puriihuaman](https://github.com/puriihuaman)    | [linkedin.com/in/pedropurihuaman](https://www.linkedin.com/in/pedropurihuaman)  | pedropuriihuaman@gmail.com |
 
