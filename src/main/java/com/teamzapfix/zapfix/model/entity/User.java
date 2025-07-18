@@ -21,7 +21,7 @@ public class User {
     private int id;
 
     @NotBlank(message = "User_name is required")
-    @Size(min = 2, max = 20, message = "Name must be between 2 and 100 characters")
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     private String userName;
 
     @NotBlank(message = "Password is required")
