@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String description;
     private LocalDate date;
     private double cost;

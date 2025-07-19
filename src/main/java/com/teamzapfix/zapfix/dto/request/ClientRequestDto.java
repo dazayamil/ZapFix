@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ClientRequestDTO {
+public class ClientRequestDto {
     @NotBlank(message = "{client.name.notblank}")
     @Size(min = 3, max = 100, message = "{client.name.size}")
     private String name;
@@ -16,7 +16,7 @@ public class ClientRequestDTO {
     @Pattern(regexp = "^\\d{10}$", message = "{client.phoneNumber.pattern}")
     private String phone;
 
-    @Email(message = "{client.email.notblank}")
+    @Email(message = "{client.email.invalid}")
     @Size(max = 100, message = "{client.email.size}")
     private String email;
 }

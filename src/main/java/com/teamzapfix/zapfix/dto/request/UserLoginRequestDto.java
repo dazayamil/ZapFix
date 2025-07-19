@@ -1,10 +1,10 @@
-package com.teamzapfix.zapfix.dto;
+package com.teamzapfix.zapfix.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class UserLoginRequestDTO {
+public class UserLoginRequestDto {
     @NotBlank(message = "{user.user_login.notblank}")
     private String username;
 

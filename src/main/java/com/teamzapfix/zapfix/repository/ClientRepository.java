@@ -1,4 +1,9 @@
 package com.teamzapfix.zapfix.repository;
 
-public interface ClientRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.teamzapfix.zapfix.model.entity.Client;
+import java.util.Optional;
+
+public interface ClientRepository extends JpaRepository<Client, Long> {
+    Optional<Client> findByPhone(String phone);
 }
