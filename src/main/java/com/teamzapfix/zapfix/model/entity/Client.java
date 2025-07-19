@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table (name = "client")
 @NoArgsConstructor
@@ -20,15 +23,11 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotBlank(message = "name is required")
-    @Size(min = 2, max = 20, message = "Name must be between 2 and 100 characters")
     private String name;
-
-    @NotBlank(message = "Phone number is required")
     private String phone;
-
-    @Email(message = "Email must be valid")
     private String email;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private List<Job> jobs = new ArrayList<>();
 
 }

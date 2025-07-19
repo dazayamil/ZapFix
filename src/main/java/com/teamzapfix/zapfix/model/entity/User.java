@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table (name = "user")
 @AllArgsConstructor
@@ -19,13 +22,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotBlank(message = "User_name is required")
-    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     private String userName;
-
-    @NotBlank(message = "Password is required")
-    @Size(min = 4, max = 100, message = "Password must be at least 4 characters long")
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Invalid password format")
+    //@Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Invalid password format")
     private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Job> jobs = new ArrayList<>();
 }
