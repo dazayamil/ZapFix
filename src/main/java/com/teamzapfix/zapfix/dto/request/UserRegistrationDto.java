@@ -1,4 +1,4 @@
-package com.teamzapfix.zapfix.dto;
+package com.teamzapfix.zapfix.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

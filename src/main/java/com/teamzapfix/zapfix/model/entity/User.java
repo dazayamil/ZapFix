@@ -23,7 +23,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    //@Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Invalid password format")
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

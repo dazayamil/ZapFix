@@ -4,9 +4,13 @@ import com.teamzapfix.zapfix.model.entity.User;
 import com.teamzapfix.zapfix.model.enums.JobStatus;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 public class JobRequestDto {
     @NotBlank(message = "{job.description.notblank}")
     @Size(min = 10, max = 500, message = "{job.description.size}")

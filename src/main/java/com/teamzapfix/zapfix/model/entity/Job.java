@@ -27,6 +27,7 @@ public class Job {
 
     @Enumerated(EnumType.STRING)
     private JobStatus state;
+
     private boolean isActive;
 
     @ManyToOne
