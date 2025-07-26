@@ -17,10 +17,10 @@ public class JobRequestDto {
     private String description;
 
     @Positive(message = "{job.cost.notnull}")
-    private double cost;
+    private Double cost;
 
     @PositiveOrZero(message = "{job.deposit.positive}")
-    private double deposit;
+    private Double deposit;
 
     @NotBlank(message = "{job.state.notblank}")
     private JobStatus state;

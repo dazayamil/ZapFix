@@ -8,8 +8,8 @@ public class JobResponseDto {
     private Long id;
     private String description;
     private LocalDate date;
-    private double cost;
-    private double deposit;
+    private Double cost;
+    private Double deposit;
     private JobStatus state;
     private Long clienteId;
     private String clientName;

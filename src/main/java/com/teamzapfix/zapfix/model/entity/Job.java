@@ -22,13 +22,13 @@ public class Job {
     private Long id;
     private String description;
     private LocalDate date;
-    private double cost;
-    private double deposit;
+    private Double cost;
+    private Double deposit;
 
     @Enumerated(EnumType.STRING)
     private JobStatus state;
 
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
