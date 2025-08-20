@@ -1,8 +1,5 @@
 package com.teamzapfix.zapfix.dto.response;
 
-public class ClientResponseDto {
-    private Long id;
-    private String name;
-    private String phone;
-    private String email;
+public record ClientResponseDto (Long id, String name, String phone, String email){
+
 }

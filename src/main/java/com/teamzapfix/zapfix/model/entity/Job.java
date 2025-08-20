@@ -2,7 +2,6 @@ package com.teamzapfix.zapfix.model.entity;
 
 import com.teamzapfix.zapfix.model.enums.JobStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
