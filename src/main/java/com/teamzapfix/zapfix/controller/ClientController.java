@@ -1,16 +1,32 @@
+package com.teamzapfix.zapfix.controller;
+
+import com.teamzapfix.zapfix.dto.request.ClientRequestDto;
+import com.teamzapfix.zapfix.dto.response.ClientResponseDto;
+import com.teamzapfix.zapfix.exception.ClientNotFoundException;
+import com.teamzapfix.zapfix.model.entity.Client;
+import com.teamzapfix.zapfix.service.impl.ClientServiceImpl;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/client")
 public class ClientController {
     private ClientServiceImpl clientService;
 
+    @Autowired
     public ClientController(ClientServiceImpl clientService) {
         this.clientService = clientService;
     }
 
     @PostMapping()
-    public ResponseEntity<Client> createClient(@Valid @RequestBody ClientRequestDto dto) {
+    public ResponseEntity<ClientResponseDto> createClient(@Valid @RequestBody ClientRequestDto dto) {
         ClientResponseDto response = clientService.createClient(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);    
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/{id}")
@@ -35,6 +51,7 @@ public class ClientController {
             ClientResponseDto response = clientService.updateClientById(id, dto);
             return ResponseEntity.ok(response);
         } catch (ClientNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());    
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Table (name = "client")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Client {
@@ -22,6 +21,14 @@ public class Client {
     private String name;
     private String phone;
     private String email;
+    private boolean isActive;
+
+    public Client(String name, String phone, String email){
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.isActive = true;
+    }
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<Job> jobs = new ArrayList<>();
