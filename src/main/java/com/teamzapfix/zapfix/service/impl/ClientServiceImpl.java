@@ -59,7 +59,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void deleteClient(Long id) throws ClientNotFoundException{
+    public void deleteClientById(Long id) throws ClientNotFoundException{
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException(id));
         client.setActive(false);

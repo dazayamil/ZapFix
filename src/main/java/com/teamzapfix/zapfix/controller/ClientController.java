@@ -31,12 +31,8 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getClientById(@PathVariable Long id) {
-        try{
             ClientResponseDto response = clientService.getClientById(id);
             return ResponseEntity.ok(response);
-        } catch (ClientNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
     }
 
     @GetMapping("/all")
@@ -47,11 +43,13 @@ public class ClientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateClientById(@PathVariable Long id, @Valid @RequestBody ClientRequestDto dto) {
-        try {
-            ClientResponseDto response = clientService.updateClientById(id, dto);
-            return ResponseEntity.ok(response);
-        } catch (ClientNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+        ClientResponseDto response = clientService.updateClientById(id, dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteClientById(@PathVariable Long id){
+        clientService.deleteClientById(id);
+        return ResponseEntity.noContent().build();
     }
 }
