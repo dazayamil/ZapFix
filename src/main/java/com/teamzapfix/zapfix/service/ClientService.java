@@ -10,7 +10,6 @@ public interface ClientService {
     ClientResponseDto createClient(ClientRequestDto dto);
     ClientResponseDto getClientById(Long id);
     List<ClientResponseDto> getAllClients();
-    //void deleteClient(Long id);
-    ClientResponseDto updateClient(Long id, ClientRequestDto dto);
-
+    ClientResponseDto updateClientById(Long id, ClientRequestDto dto);
+    void deleteClientById(Long id);
 }

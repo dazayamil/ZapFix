@@ -8,14 +8,17 @@ import com.teamzapfix.zapfix.model.entity.Client;
 import com.teamzapfix.zapfix.repository.ClientRepository;
 import com.teamzapfix.zapfix.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
     private ClientMapper clientMapper;
 
+    @Autowired
     public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper){
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
@@ -37,14 +40,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<ClientResponseDto> getAllClients() {
-        List<Client> clients = clientRepository.findAll();
+        List<Client> clients = clientRepository.findAllByIsActiveTrue();
         return clients.stream()
                 .map(client -> clientMapper.toResponse(client))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ClientResponseDto updateClient(Long id, ClientRequestDto dto) throws ClientNotFoundException {
+    public ClientResponseDto updateClientById(Long id, ClientRequestDto dto) throws ClientNotFoundException {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException(id));
         client.setName(dto.getName());
@@ -53,5 +56,13 @@ public class ClientServiceImpl implements ClientService {
 
         Client updateClient = clientRepository.save(client);
         return clientMapper.toResponse(updateClient);
+    }
+
+    @Override
+    public void deleteClientById(Long id) throws ClientNotFoundException{
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundException(id));
+        client.setActive(false);
+        clientRepository.save(client);
     }
 }
