@@ -1,4 +1,5 @@
 .env
+run.sh
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
