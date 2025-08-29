@@ -1,5 +1,6 @@
 package com.teamzapfix.zapfix.controller;
 
+import com.teamzapfix.zapfix.dto.request.ClientPatchRequestDto;
 import com.teamzapfix.zapfix.dto.request.ClientRequestDto;
 import com.teamzapfix.zapfix.dto.response.ClientResponseDto;
 import com.teamzapfix.zapfix.exception.ClientNotFoundException;
@@ -45,6 +46,12 @@ public class ClientController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateClientById(@PathVariable Long id, @Valid @RequestBody ClientRequestDto dto) {
         ClientResponseDto response = clientService.updateClientById(id, dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ClientResponseDto> updatePartialClient(@PathVariable Long id, @RequestBody ClientPatchRequestDto dto){
+        ClientResponseDto response = clientService.updatePartialClient(id, dto);
         return ResponseEntity.ok(response);
     }
 

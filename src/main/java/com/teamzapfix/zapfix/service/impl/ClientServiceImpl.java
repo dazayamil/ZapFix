@@ -1,5 +1,6 @@
 package com.teamzapfix.zapfix.service.impl;
 
+import com.teamzapfix.zapfix.dto.request.ClientPatchRequestDto;
 import com.teamzapfix.zapfix.dto.request.ClientRequestDto;
 import com.teamzapfix.zapfix.dto.response.ClientResponseDto;
 import com.teamzapfix.zapfix.exception.ClientNotFoundException;
@@ -53,6 +54,19 @@ public class ClientServiceImpl implements ClientService {
         client.setName(dto.getName());
         client.setPhone(dto.getPhone());
         client.setEmail(dto.getEmail());
+
+        Client updateClient = clientRepository.save(client);
+        return clientMapper.toResponse(updateClient);
+    }
+
+    @Override
+    public ClientResponseDto updatePartialClient(Long id, ClientPatchRequestDto dto) throws ClientNotFoundException{
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundException(id));
+
+        if(dto.getName() != null && !dto.getName().isBlank()){client.setName(dto.getName());}
+        if(dto.getPhone() != null && !dto.getPhone().isBlank()){client.setPhone(dto.getPhone());}
+        if(dto.getEmail() != null && !dto.getEmail().isBlank()){client.setEmail(dto.getEmail());}
 
         Client updateClient = clientRepository.save(client);
         return clientMapper.toResponse(updateClient);
