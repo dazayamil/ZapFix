@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.stream.Collectors;
 
 public class ClientSpecification {
     private static final String NAME = "name";
@@ -23,11 +23,23 @@ public class ClientSpecification {
     public static Specification<Client> filter(Map<String, String> keywords) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+            
             keywords.remove("page");
             keywords.remove("size");
             keywords.remove("sort");
             
-            if (!ALLOWED_KEY.containsAll(keywords.keySet())) {
+            
+            Map<String, String> cleanKeywords = keywords.entrySet()
+                                                        .stream()
+                                                        .filter(entry -> entry.getValue() != null &&
+                                                                !entry.getValue().trim().isEmpty() &&
+                                                                !"null".equals(entry.getValue()))
+                                                        .collect(Collectors.toMap(
+                                                                Map.Entry::getKey,
+                                                                Map.Entry::getValue
+                                                        ));
+            
+            if (!ALLOWED_KEY.containsAll(cleanKeywords.keySet())) {
                 String sb = "Invalid filter parameter: %s. Allowed parameters: %s".formatted(
                         keywords.keySet(),
                         ALLOWED_KEY
@@ -38,36 +50,16 @@ public class ClientSpecification {
                 throw new APIRequestException(APIError.BAD_REQUEST);
             }
             
-            try {
-                for (Map.Entry<String, String> entry : keywords.entrySet()) {
-                    String key = entry.getKey();
-                    String value = entry.getValue();
-                    
-                    if (value == null || value.trim().isEmpty()) continue;
-                    
-                    switch (key) {
-                        case PHONE:
-                            String phone = "%" + value + "%";
-                            predicates.add(cb.like(cb.lower(root.get(PHONE)), phone));
-                            break;
-                        case EMAIL:
-                            String cleanEmail = "%" + value.trim().toLowerCase() + "%";
-                            predicates.add(cb.like(cb.lower(root.get(EMAIL)), cleanEmail));
-                            break;
-                        case NAME:
-                        default:
-                            String cleanName = "%" + value.trim().toLowerCase() + "%";
-                            
-                            predicates.add(cb.like(cb.lower(root.get(NAME)), cleanName));
-                            break;
-                    }
+            
+            cleanKeywords.forEach((key, value) -> {
+                String text = "%" + value.toLowerCase() + "%";
+                
+                switch (key) {
+                    case PHONE -> predicates.add(cb.like(cb.lower(root.get(PHONE)), text));
+                    case EMAIL -> predicates.add(cb.like(cb.lower(root.get(EMAIL)), text));
+                    case NAME -> predicates.add(cb.like(cb.lower(root.get(NAME)), text));
                 }
-            } catch (NumberFormatException ex) {
-                String sb = "Invalid value for parameter: %s. Expected a number.".formatted(keywords.keySet());
-                APIError.BAD_REQUEST.setTitle("Invalid value");
-                APIError.BAD_REQUEST.setMessage(sb);
-                throw new APIRequestException(APIError.BAD_REQUEST);
-            }
+            });
             
             predicates.add(cb.isTrue(root.get(IS_ACTIVE)));
             
