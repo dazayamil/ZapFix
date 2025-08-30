@@ -30,7 +30,7 @@ public class Job {
     private Boolean isActive;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
     @ManyToOne
