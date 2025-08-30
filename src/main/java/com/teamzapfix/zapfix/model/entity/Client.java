@@ -1,7 +1,12 @@
 package com.teamzapfix.zapfix.model.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +26,7 @@ public class Client {
     private String name;
     private String phone;
     private String email;
-    private boolean isActive;
+    private Boolean isActive;
 
     public Client(String name, String phone, String email){
         this.name = name;

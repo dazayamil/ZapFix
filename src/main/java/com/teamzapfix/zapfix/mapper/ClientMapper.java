@@ -8,7 +8,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
-    @Mapping(target = "active", constant = "true")
+    @Mapping(target = "isActive", constant = "true")
     Client toEntity(ClientRequestDto dto);
+    
     ClientResponseDto toResponse(Client client);
 }
