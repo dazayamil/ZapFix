@@ -8,8 +8,6 @@ import java.util.Map;
 
 @Getter
 public class APIRequestException extends RuntimeException {
-    
-    
     private final Boolean hasError = true;
     private final String title;
     private final String message;
@@ -19,8 +17,8 @@ public class APIRequestException extends RuntimeException {
     
     public APIRequestException(APIError apiError) {
         super();
-        this.title = apiError.getTitle();
-        this.message = apiError.getMessage();
+        this.title = apiError.getTitleKey();
+        this.message = apiError.getMessageKey();
         this.statusCode = apiError.getStatus();
         this.apiError = apiError;
     }

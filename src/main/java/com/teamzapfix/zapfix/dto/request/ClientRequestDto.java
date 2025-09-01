@@ -1,7 +1,7 @@
 package com.teamzapfix.zapfix.dto.request;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -10,11 +10,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClientRequestDto {
-    @NotBlank(message = "{client.name.notblank}")
+    @NotEmpty(message = "{client.name.not_empty}")
     @Size(min = 3, max = 100, message = "{client.name.size}")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+", message = "{client.name.pattern}")
     private String name;
 
-    @NotBlank(message = "{client.phoneNumber.notblank}")
+    @NotEmpty(message = "{client.phoneNumber.not_empty}")
     @Pattern(regexp = "^\\d{10}$", message = "{client.phoneNumber.pattern}")
     private String phone;
 
