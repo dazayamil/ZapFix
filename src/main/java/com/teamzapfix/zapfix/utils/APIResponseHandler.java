@@ -1,17 +1,26 @@
 package com.teamzapfix.zapfix.utils;
 
-import com.teamzapfix.zapfix.model.enums.APISuccess;
 import com.teamzapfix.zapfix.dto.response.PaginationDto;
+import com.teamzapfix.zapfix.model.enums.APISuccess;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class APIResponseHandler {
-    public static <T> ResponseEntity<APIResponseData<T>> handleResponse(APISuccess success, T data) {
-        APIResponseData<T> responseData = new APIResponseData<>(success, data);
+    private final MessageSource msgSource;
+    
+    public APIResponseHandler(MessageSource msgSource) {
+        this.msgSource = msgSource;
+    }
+    
+    public <T> ResponseEntity<APIResponseData<T>> handleResponse(APISuccess success, T data) {
+        APIResponseData<T> responseData = new APIResponseData<>(success, data, msgSource);
         return new ResponseEntity<>(responseData, success.getStatus());
     }
     
-    public static <T> ResponseEntity<APIResponseDataPagination<T>> handleResponse(APISuccess success, Page<T> page) {
+    public <T> ResponseEntity<APIResponseDataPagination<T>> handleResponse(APISuccess success, Page<T> page) {
         PaginationDto pagination = new PaginationDto(
                 page.getPageable().getPageNumber(),
                 page.getPageable().getPageSize(),
@@ -26,7 +35,8 @@ public class APIResponseHandler {
         APIResponseDataPagination<T> responseData = new APIResponseDataPagination<>(
                 success,
                                                                                     pagination,
-                                                                                    page.getContent()
+                                                                                    page.getContent(),
+                                                                                    msgSource
         );
         return new ResponseEntity<>(responseData, success.getStatus());
     }

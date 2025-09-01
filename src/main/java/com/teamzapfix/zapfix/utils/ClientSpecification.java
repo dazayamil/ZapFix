@@ -45,8 +45,8 @@ public class ClientSpecification {
                         ALLOWED_KEY
                 );
                 
-                APIError.BAD_REQUEST.setTitle("Invalid parameter");
-                APIError.BAD_REQUEST.setMessage(sb);
+                APIError.BAD_REQUEST.setTitleKey("Invalid parameter");
+                APIError.BAD_REQUEST.setMessageKey(sb);
                 throw new APIRequestException(APIError.BAD_REQUEST);
             }
             

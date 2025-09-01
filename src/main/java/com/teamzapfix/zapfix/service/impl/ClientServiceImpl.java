@@ -41,8 +41,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDto getClientById(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            APIError.RECORD_NOT_FOUND.setTitle("Client not found");
-            APIError.RECORD_NOT_FOUND.setMessage("The client you are trying to access does not exist.");
+            APIError.RECORD_NOT_FOUND.setTitleKey("client.error.message.not_found");
+            APIError.RECORD_NOT_FOUND.setMessageKey("client.error.message.not_found.details");
             
             return new APIRequestException(APIError.RECORD_NOT_FOUND);
         });
@@ -52,7 +52,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Page<ClientResponseDto> getAllClients(Pageable pageable, Map<String, String> filters) {
         Specification<Client> spec = ClientSpecification.filter(filters);
-        //.and((root, query, cb) -> cb.isTrue(root.get("isActive")));
+        
         Page<Client> clients = clientRepository.findAll(spec, pageable);
         
         return clients.map(clientMapper::toResponse);
@@ -61,8 +61,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDto updateClientById(Long id, ClientRequestDto dto) throws APIRequestException {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            APIError.RECORD_NOT_FOUND.setTitle("Client not found");
-            APIError.RECORD_NOT_FOUND.setMessage("The client you are trying to access does not exist.");
+            APIError.RECORD_NOT_FOUND.setTitleKey("client.error.message.not_found");
+            APIError.RECORD_NOT_FOUND.setMessageKey("client.error.message.not_found.details");
             
             return new APIRequestException(APIError.RECORD_NOT_FOUND);
         });
@@ -79,8 +79,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponseDto updatePartialClient(Long id, ClientPatchRequestDto dto) throws APIRequestException {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            APIError.RECORD_NOT_FOUND.setTitle("Client not found");
-            APIError.RECORD_NOT_FOUND.setMessage("The client you are trying to access does not exist.");
+            APIError.RECORD_NOT_FOUND.setTitleKey("client.error.message.not_found");
+            APIError.RECORD_NOT_FOUND.setMessageKey("client.error.message.not_found.details");
             
             return new APIRequestException(APIError.RECORD_NOT_FOUND);
         });
@@ -103,8 +103,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteClientById(Long id) throws APIRequestException {
         Client client = clientRepository.findById(id).orElseThrow(() -> {
-            APIError.RECORD_NOT_FOUND.setTitle("Client not found");
-            APIError.RECORD_NOT_FOUND.setMessage("The client you are trying to access does not exist.");
+            APIError.RECORD_NOT_FOUND.setTitleKey("client.error.message.not_found");
+            APIError.RECORD_NOT_FOUND.setMessageKey("client.error.message.not_found.details");
             
             return new APIRequestException(APIError.RECORD_NOT_FOUND);
         });

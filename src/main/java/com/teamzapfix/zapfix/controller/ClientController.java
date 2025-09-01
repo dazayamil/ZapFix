@@ -35,24 +35,27 @@ import java.util.Map;
 @RequestMapping("/client")
 public class ClientController {
     private final ClientServiceImpl clientService;
+    private final APIResponseHandler apiResponseHandler;
     
-    //@Autowired
-    public ClientController(ClientServiceImpl clientService) {
+    public ClientController(ClientServiceImpl clientService, APIResponseHandler apiResponseHandler) {
         this.clientService = clientService;
+        this.apiResponseHandler = apiResponseHandler;
     }
     
     @PostMapping("/create")
     public ResponseEntity<APIResponseData<ClientResponseDto>> createClient(@Valid @RequestBody ClientRequestDto dto) {
         ClientResponseDto client = clientService.createClient(dto);
         
-        return APIResponseHandler.handleResponse(APISuccess.RESOURCE_CREATED, client);
+        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.created");
+        return apiResponseHandler.handleResponse(APISuccess.RESOURCE_CREATED, client);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<APIResponseData<ClientResponseDto>> getClientById(@PathVariable Long id) {
         ClientResponseDto client = clientService.getClientById(id);
         
-        return APIResponseHandler.handleResponse(APISuccess.RESOURCE_RETRIEVED, client);
+        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.read");
+        return apiResponseHandler.handleResponse(APISuccess.RESOURCE_RETRIEVED, client);
     }
     
     @GetMapping("/all")
@@ -68,7 +71,8 @@ public class ClientController {
         );
         Page<ClientResponseDto> clientToPage = clientService.getAllClients(pageable, keywords);
         
-        return APIResponseHandler.handleResponse(APISuccess.RESOURCE_RETRIEVED, clientToPage);
+        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.read.all");
+        return apiResponseHandler.handleResponse(APISuccess.RESOURCE_RETRIEVED, clientToPage);
     }
     
     @PutMapping("update/{id}")
@@ -78,7 +82,8 @@ public class ClientController {
     ) {
         ClientResponseDto client = clientService.updateClientById(id, dto);
         
-        return APIResponseHandler.handleResponse(APISuccess.RESOURCE_UPDATED, client);
+        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.updated");
+        return apiResponseHandler.handleResponse(APISuccess.RESOURCE_UPDATED, client);
     }
     
     @PatchMapping("/{id}")
@@ -88,13 +93,15 @@ public class ClientController {
     ) {
         ClientResponseDto client = clientService.updatePartialClient(id, dto);
         
-        return APIResponseHandler.handleResponse(APISuccess.RESOURCE_UPDATED, client);
+        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.updated");
+        return apiResponseHandler.handleResponse(APISuccess.RESOURCE_UPDATED, client);
     }
     
     @DeleteMapping("delete/{id}")
     public ResponseEntity<APIResponseData<Void>> deleteClientById(@PathVariable Long id) {
         clientService.deleteClientById(id);
         
-        return APIResponseHandler.handleResponse(APISuccess.RESOURCE_REMOVED, (Void) null);
+        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.deleted");
+        return apiResponseHandler.handleResponse(APISuccess.RESOURCE_REMOVED, (Void) null);
     }
 }

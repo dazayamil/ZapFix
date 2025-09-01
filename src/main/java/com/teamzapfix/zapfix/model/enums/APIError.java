@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
@@ -11,98 +13,93 @@ import org.springframework.http.HttpStatus;
 public enum APIError {
     INVALID_REQUEST_DATA(
             HttpStatus.BAD_REQUEST,
-            "Invalid request data",
-            "The requested data contains invalid values or is in an incorrect format."
+            "error.message.invalid_data.title",
+            "error.message.invalid_data.details"
     ),
     INVALID_CREDENTIALS(
             HttpStatus.UNAUTHORIZED,
-                        "Invalid credentials",
-                        "The credentials provided are incorrect or have expired."
+            "error.message.invalid_credential.title",
+            "error.message.invalid_credential.details"
     ),
     BAD_REQUEST(
             HttpStatus.BAD_REQUEST,
-                "Bad Request",
-                "The request does not meet basic syntax or parameter requirements."
+            "error.message.bad_request.title",
+            "error.message.bad_request.details"
     ),
     BAD_FORMAT(
             HttpStatus.BAD_REQUEST,
-            "Unsupported format",
-            "The content of the request has an invalid or incompatible format"
+            "error.message.bad_format.title",
+            "error.message.bad_format.details"
     ),
     RECORD_NOT_FOUND(
             HttpStatus.NOT_FOUND,
-            "Resource not found",
-            "The requested resource does not exist or has been " + "deleted."
+            "error.message.not_found.title",
+            "error.message.not_found.details"
     ),
     ENDPOINT_NOT_FOUND(
             HttpStatus.NOT_FOUND,
-            "Route not available",
-            "The requested URL does not correspond to any available resource."
+            "error.message.endpoint_not_found.title",
+            "error.message.endpoint_not_found.details"
     ),
     UNAUTHORIZED(
             HttpStatus.UNAUTHORIZED,
-                 "Unauthorized access",
-                 "Valid credentials are required to access this resource."
+            "error.message.unauthorized.title",
+            "error.message.unauthorized.details"
     ),
     FORBIDDEN(
             HttpStatus.FORBIDDEN,
-            "Insufficient permissions",
-            "Your account does not have the necessary privileges for this operation."
+            "error.message.forbidden.title",
+            "error.message.forbidden.details"
     ),
     INTERNAL_SERVER_ERROR(
             HttpStatus.INTERNAL_SERVER_ERROR,
-                          "System error",
-                          "An unexpected error occurred. Please try again later."
+            "error.message.internal_server.title",
+            "error.message.internal_server.details"
     ),
     METHOD_NOT_ALLOWED(
             HttpStatus.METHOD_NOT_ALLOWED,
-                       "Disallowed method",
-                       "The HTTP verb used is not supported for this resource."
+            "error.message.method_not_allowed.title",
+            "error.message.method_not_allowed.details"
     ),
     UNPROCESSABLE_ENTITY(
             HttpStatus.UNPROCESSABLE_ENTITY,
-            "Validation error",
-            "The request is syntactically valid but failed business validations."
+            "error.message.unprocessable_entity.title",
+            "error.message.unprocessable_entity.details"
     ),
     RESOURCE_CONFLICT(
             HttpStatus.CONFLICT,
-            "Resource conflict",
-            "The current state of the resource creates a conflict with the requested operation."
+            "error.message.resource_conflict.title",
+            "error.message.resource_conflict.details"
     ),
     DUPLICATE_RESOURCE(
             HttpStatus.CONFLICT,
-                       "Duplicate resource",
-                       "A resource with the same identifier values already exists."
+            "error.message.duplicate_resource.title",
+            "error.message.duplicate_resource.details"
     ),
     UNIQUE_CONSTRAINT_VIOLATION(
             HttpStatus.CONFLICT,
-            "Single Constraint Violation",
-            "An attempt was made to create a resource with an existing unique field."
+            "error.message.unique_violation.title",
+            "error.message.unique_violation.details"
     ),
     RESOURCE_ASSOCIATED_EXCEPTION(
             HttpStatus.CONFLICT,
-            "Existing dependencies",
-            "The resource cannot be modified due to relationships with other elements."
+            "error.message.associated.title",
+            "error.message.associated.details"
     ),
     DATABASE_ERROR(
             HttpStatus.INTERNAL_SERVER_ERROR,
-            "Persistence error",
-            "A critical operation with the data storage system failed."
-    ),
-    TIMEOUT_ERROR(
-            HttpStatus.REQUEST_TIMEOUT,
-            "Timed out",
-            "The operation exceeded the maximum time allowed for its execution."
+            "error.message.database.title",
+            "error.message.database.details"
     ),
     EXTERNAL_API_ERROR(
             HttpStatus.BAD_GATEWAY,
-            "Error de servicio externo",
-            "Communication with a required third-party service failed."
+            "error.message.external.title",
+            "error.message.external.details"
     );
     
     private HttpStatus status;
-    private String title;
-    private String message;
+    private String titleKey;
+    private String messageKey;
     
     @JsonSetter
     public void setStatus(HttpStatus status) {
@@ -110,12 +107,20 @@ public enum APIError {
     }
     
     @JsonGetter
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleKey(String titleKey) {
+        this.titleKey = titleKey;
     }
     
     @JsonGetter
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageKey(String messageKey) {
+        this.messageKey = messageKey;
+    }
+    
+    public String getLocalizedTitle(MessageSource msgSource) {
+        return msgSource.getMessage(this.titleKey, null, LocaleContextHolder.getLocale());
+    }
+    
+    public String getLocalizedMessage(MessageSource msgSource) {
+        return msgSource.getMessage(this.messageKey, null, LocaleContextHolder.getLocale());
     }
 }
