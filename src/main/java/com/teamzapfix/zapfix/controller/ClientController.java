@@ -46,7 +46,7 @@ public class ClientController {
     public ResponseEntity<APIResponseData<ClientResponseDto>> createClient(@Valid @RequestBody ClientRequestDto dto) {
         ClientResponseDto client = clientService.createClient(dto);
         
-        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.created");
+        APISuccess.RESOURCE_CREATED.setMessageKey("client.success.message.created");
         return apiResponseHandler.handleResponse(APISuccess.RESOURCE_CREATED, client);
     }
     
@@ -82,7 +82,7 @@ public class ClientController {
     ) {
         ClientResponseDto client = clientService.updateClientById(id, dto);
         
-        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.updated");
+        APISuccess.RESOURCE_UPDATED.setMessageKey("client.success.message.updated");
         return apiResponseHandler.handleResponse(APISuccess.RESOURCE_UPDATED, client);
     }
     
@@ -93,7 +93,7 @@ public class ClientController {
     ) {
         ClientResponseDto client = clientService.updatePartialClient(id, dto);
         
-        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.updated");
+        APISuccess.RESOURCE_UPDATED.setMessageKey("client.success.message.updated");
         return apiResponseHandler.handleResponse(APISuccess.RESOURCE_UPDATED, client);
     }
     
@@ -101,7 +101,7 @@ public class ClientController {
     public ResponseEntity<APIResponseData<Void>> deleteClientById(@PathVariable Long id) {
         clientService.deleteClientById(id);
         
-        APISuccess.RESOURCE_RETRIEVED.setMessageKey("client.success.message.deleted");
+        APISuccess.RESOURCE_REMOVED.setMessageKey("client.success.message.deleted");
         return apiResponseHandler.handleResponse(APISuccess.RESOURCE_REMOVED, (Void) null);
     }
 }
